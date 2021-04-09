@@ -1,6 +1,9 @@
 from flask import Flask, render_template, url_for
 app = Flask(__name__)
+from forms import UserRegistrationForm, UserLoginForm
 
+
+app.config['SECRET_KEY'] = '0fbb5cf8b4d203403d82c88402440a72'
 
 posts = [
 {
@@ -18,8 +21,6 @@ posts = [
 ]
 
 
-
-
 @app.route('/')
 def home():
     return render_template('home.html', posts=posts)
@@ -28,6 +29,18 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html', title="About")
+
+
+@app.route('/register')
+def register():
+	form = UserRegistrationForm()
+	return render_template('user_register.html', title="Register", form=form)
+
+@app.route('/login')
+def login():
+	form = UserLoginForm()
+	return render_template('user_login.html', title="Login", form=form )
+
 
 
 if __name__ == "__main__":
